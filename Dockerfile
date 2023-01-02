@@ -4,5 +4,6 @@ RUN mkdir /app
 WORKDIR /app/
 
 COPY src/fastapi_kubernetes/. .
+RUN python -m pip install -r requirements.txt
 
-ENTRYPOINT ["tail", "-f", "/dev/null"]
+ENTRYPOINT ["python", "-m", "uvicorn", "main:app"]

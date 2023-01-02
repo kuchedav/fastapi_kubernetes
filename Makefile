@@ -60,7 +60,6 @@ test:
 git:
 	git add .
 	git commit -m "debug"
-	git push origin main
 
 docker_package:
 	@echo '==========================================================================='
