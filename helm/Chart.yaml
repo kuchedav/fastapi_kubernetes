@@ -1,4 +1,4 @@
 apiVersion: v2
 name: fastapi-kubernetes
-version: 0.0.0-template
+version: 0.0.1
 kubeVersion: ">= 1.18.0-0"
