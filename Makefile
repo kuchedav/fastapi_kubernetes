@@ -70,7 +70,7 @@ docker_package:
 	@echo '==========================================================================='
 	docker build . -t kuchedav/fastapi-kubernetes:$(PACKAGE_VERSION_CLEAN)
 
-docker_hub_push: docker_package
+docker_hub_push: pip_requirements docker_package
 	docker push kuchedav/fastapi-kubernetes:$(PACKAGE_VERSION_CLEAN)
 
 docker_clean:

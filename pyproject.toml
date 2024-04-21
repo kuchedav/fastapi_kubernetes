@@ -3,11 +3,7 @@ requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
-authors = [
-
-{name = "David Kuchelmeister"},
-
-]
+authors = [{name = "David Kuchelmeister"}]
 
 dependencies = [
   "pandas >= 1.4.0",
@@ -15,7 +11,7 @@ dependencies = [
 dynamic = ["version"]
 name = "fastapi_kubernetes"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.11"
 
 [project.optional-dependencies]
 dev = [
@@ -30,7 +26,7 @@ source_pkgs = [
 [tool.mypy]
 files = "src/fastapi_kubernetes"
 ignore_missing_imports = true
-python_version = "3.8"
+python_version = "3.11"
 
 [tool.pytest.ini_options]
 testpaths = [

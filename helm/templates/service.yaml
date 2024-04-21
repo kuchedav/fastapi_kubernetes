@@ -9,7 +9,7 @@ spec:
     app: {{ .Chart.Name }}
   type: ClusterIP
   ports:
-    - port: {{ .Chart.Port }}
-      targetPort: {{ .Chart.Port }}
+    - port: {{ .Values.port }}
+      targetPort: {{ .Values.port }}
       protocol: TCP
       name: http
