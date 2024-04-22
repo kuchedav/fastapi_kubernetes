@@ -20,3 +20,5 @@ spec:
         - name: {{ .Chart.Name }}
           imagePullPolicy: Always
           image: kuchedav/{{ .Chart.Name }}:{{ .Chart.Version }}
+          ports:
+          - containerPort: {{ .Values.port }}

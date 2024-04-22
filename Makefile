@@ -79,10 +79,13 @@ docker_hub_push: pip_requirements docker_package
 	docker push kuchedav/fastapi-kubernetes:$(PACKAGE_VERSION_CLEAN)
 
 docker_clean:
-	docker rmi kuchedav/fastapi-kubernetes:$(PACKAGE_VERSION_CLEAN)
+	-docker images | grep 'fastapi-kubernetes' | awk '{print $3}' | xargs docker rmi -f
 
-helm: docker_hub_push docker_clean
+helm_install:
 	sed -i "" "/^\([[:space:]]*version: \).*/s//\1$(PACKAGE_VERSION_CLEAN)/" helm/Chart.yaml
 	helm lint ./helm/
 	-helm uninstall fastapi-kubernetes
 	helm install fastapi-kubernetes ./helm
+
+helm: docker_hub_push helm_install
+	@echo 'New version is installed'
