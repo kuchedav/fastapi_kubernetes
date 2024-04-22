@@ -18,6 +18,9 @@ requires-python = ">=3.11"
 dev = [
   "setuptools_scm",
   "build",
+  "pytest",
+  "coverage",
+  "httpx",
 ]
 
 [tool.coverage.run]

@@ -27,14 +27,14 @@ commands:
 	@echo 'helm: build docker package, upload to docker hub, delete local image...'
 	@echo '		...delete current helm install and install new helm chart'
 
-#################################################################################
-# COMMANDS                                                                      #
-#################################################################################
-
 ## Delete all compiled Python files
 clean:
 	find . -type f -name "*.py[co]" -delete
 	find . -type d -name "__pycache__" -delete
+
+#################################################################################
+# PYPI DEPLOYMENT                                                               #
+#################################################################################
 
 package:
 	rm -rf dist/*
@@ -43,7 +43,7 @@ package:
 check_credentials_exist:
 	[ -f ~/.pypi ] && echo 'pypi credentials found' || echo '~/.pypi file not found!'
 
-publish: package check_credentials_exist
+publish: check_credentials_exist package
 	twine check dist/*
 	twine upload --repository testpypi --config-file ~/.pypi dist/*
 	@echo '==============================================='
@@ -54,14 +54,16 @@ publish_prod: check_credentials_exist test
 	twine check dist/*
 	twine upload --repository pypi --config-file ~/.pypi dist/*
 
-test:
-	tox
+#################################################################################
+# KUBERNETES DEPLOYMENT                                                         #
+#################################################################################
+
+# Clean up docker images
+docker_clean:
+	-docker images | grep 'fastapi-kubernetes' | awk '{print $3}' | xargs docker rmi -f
 
 pip_requirements:
 	python -m pip freeze > requirements.txt
-
-git: pip_requirements
-	git commit -a -m "debug"
 
 docker_package:
 	@echo '==========================================================================='
@@ -78,14 +80,25 @@ docker_package:
 docker_hub_push: pip_requirements docker_package
 	docker push kuchedav/fastapi-kubernetes:$(PACKAGE_VERSION_CLEAN)
 
-docker_clean:
-	-docker images | grep 'fastapi-kubernetes' | awk '{print $3}' | xargs docker rmi -f
-
 helm_install:
 	sed -i "" "/^\([[:space:]]*version: \).*/s//\1$(PACKAGE_VERSION_CLEAN)/" helm/Chart.yaml
 	helm lint ./helm/
 	-helm uninstall fastapi-kubernetes
 	helm install fastapi-kubernetes ./helm
 
+# Combine all the steps to deploy the new version
 helm: docker_hub_push helm_install
 	@echo 'New version is installed'
+
+
+#################################################################################
+# TESTING                                                                       #
+#################################################################################
+
+pytest:
+	coverage erase
+	coverage run -m pytest
+	coverage report -m
+
+test:
+	tox
