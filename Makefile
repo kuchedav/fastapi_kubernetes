@@ -58,17 +58,22 @@ test:
 	tox
 
 pip_requirements:
-	pip freeze > requirements.txt
+	python -m pip freeze > requirements.txt
 
 git: pip_requirements
-	git add .
-	git commit -m "debug"
+	git commit -a -m "debug"
 
 docker_package:
 	@echo '==========================================================================='
 	@echo 'MAKE SURE TO RUN ONLY ON A CLEAN GIT BRANCH'
 	@echo '==========================================================================='
+
 	docker build . -t kuchedav/fastapi-kubernetes:$(PACKAGE_VERSION_CLEAN)
+
+	@echo '==========================================================================='
+	@echo '# Show docker images'
+	docker images | grep fastapi-kubernetes
+	@echo '==========================================================================='
 
 docker_hub_push: pip_requirements docker_package
 	docker push kuchedav/fastapi-kubernetes:$(PACKAGE_VERSION_CLEAN)
@@ -79,5 +84,5 @@ docker_clean:
 helm: docker_hub_push docker_clean
 	sed -i "" "/^\([[:space:]]*version: \).*/s//\1$(PACKAGE_VERSION_CLEAN)/" helm/Chart.yaml
 	helm lint ./helm/
-	helm uninstall fastapi-kubernetes
+	-helm uninstall fastapi-kubernetes
 	helm install fastapi-kubernetes ./helm

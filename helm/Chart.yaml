@@ -1,5 +1,5 @@
 apiVersion: v2
 name: fastapi-kubernetes
-version: 0.0.1
+version: 0.0.2
 kubeVersion: ">= 1.18.0-0"
 icon: https://try.direct/files/8400033b-cf2e-4fc4-ac91-45cadee082ed.svg

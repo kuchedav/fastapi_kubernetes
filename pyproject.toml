@@ -6,7 +6,8 @@ build-backend = "setuptools.build_meta"
 authors = [{name = "David Kuchelmeister"}]
 
 dependencies = [
-  "pandas >= 1.4.0",
+  "uvicorn >= 0.29.0",
+  "fastapi >= 0.110.2",
 ]
 dynamic = ["version"]
 name = "fastapi_kubernetes"
@@ -15,7 +16,8 @@ requires-python = ">=3.11"
 
 [project.optional-dependencies]
 dev = [
-  "sklearn>=1.21.0"
+  "setuptools_scm",
+  "build",
 ]
 
 [tool.coverage.run]

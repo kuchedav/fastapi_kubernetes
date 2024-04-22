@@ -1,9 +1,13 @@
-FROM python:3.8
+FROM python:3.11.4
 
 RUN mkdir /app
-WORKDIR /app/
+WORKDIR /app
 
-COPY src/fastapi_kubernetes/. .
-RUN pip install -r requirements.txt
+COPY . .
+RUN python -m pip install pip setuptools build . --upgrade
 
+EXPOSE 8000
+
+WORKDIR /app/src/fastapi_kubernetes/
+# ENTRYPOINT ["tail", "-f", "/dev/null"]
 ENTRYPOINT ["python", "-m", "uvicorn", "main:app"]
