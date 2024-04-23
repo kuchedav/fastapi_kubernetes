@@ -1,27 +1,23 @@
-from daves_utilities.david_secrets import get_credentials
 from fastapi import Depends
 from fastapi import FastAPI
-from fastapi import HTTPException
-from fastapi import status
-from fastapi.security import HTTPBasic
-from fastapi.security import HTTPBasicCredentials
+from loguru import logger
+
+from fastapi_kubernetes.auth import authenticate_user
 
 app = FastAPI()
-security = HTTPBasic()
 
 
-def authenticate_user(credentials: HTTPBasicCredentials = Depends(security)):
-    crd = get_credentials("fastapi")
+@app.on_event("startup")
+async def startup_event():
+    logger.info("Starting up...")
 
-    if credentials.username != crd["usr"] or credentials.password != crd["pwd"]:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Basic"},
-        )
-    return credentials.username
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    logger.info("Shutting down...")
 
 
 @app.get("/", dependencies=[Depends(authenticate_user)])
 async def root():
+    logger.info("Handling root path request...")
     return {"message": "Hello World"}

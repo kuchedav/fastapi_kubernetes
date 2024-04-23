@@ -101,3 +101,6 @@ pytest:
 
 test:
 	tox
+
+load_test:
+	locust -f tests/load_test.py --host http://localhost:8000

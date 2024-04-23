@@ -1,5 +1,16 @@
 # Kubectl Cheat Sheet
 
+## minikube
+
+1. ensure cluster is running
+2. ensure docker desktop has set the context to minikube
+3. start a bash shell running minikube tunnel
+
+```bash
+minikube start
+minikube tunnel
+```
+
 ## Create the david_secret on kubernetes
 
 ```bash
