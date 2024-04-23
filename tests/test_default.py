@@ -2,7 +2,7 @@ import pytest
 from daves_utilities.david_secrets import get_credentials
 from fastapi.testclient import TestClient
 
-from fastapi_kubernetes.app import app
+from fastapi_kubernetes.main import app
 
 
 @pytest.fixture(scope="module")
