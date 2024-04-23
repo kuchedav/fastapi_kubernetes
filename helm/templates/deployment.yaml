@@ -22,3 +22,9 @@ spec:
           image: kuchedav/{{ .Chart.Name }}:{{ .Chart.Version }}
           ports:
           - containerPort: {{ .Values.port }}
+          env:
+            - name: DAVID_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: david-secret
+                  key: david_secret
