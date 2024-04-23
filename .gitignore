@@ -98,3 +98,6 @@ target/
 
 # ignore version file
 _version.py
+
+# pytest
+pytest_cache/
