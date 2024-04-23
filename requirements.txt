@@ -19,7 +19,7 @@ daves_utilities==0.1.11
 distlib==0.3.8
 docutils==0.21.1
 fastapi==0.110.2
--e git+https://github.com/kuchedav/fastapi_kubernetes.git@4df6e9cf0a3aaaef3ce735fdd606861acfcc0a31#egg=fastapi_kubernetes
+-e git+https://github.com/kuchedav/fastapi_kubernetes.git@d27f50e6f962f2c1994053dc9d5419f9347f0889#egg=fastapi_kubernetes
 filelock==3.13.4
 flake8==6.1.0
 h11==0.14.0

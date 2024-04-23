@@ -69,7 +69,7 @@ docker_package:
 	@echo '==========================================================================='
 	@echo 'MAKE SURE TO RUN ONLY ON A CLEAN GIT BRANCH'
 	@echo '==========================================================================='
-	docker rmi kuchedav/fastapi-kubernetes:$(PACKAGE_VERSION_CLEAN)
+	-docker rmi kuchedav/fastapi-kubernetes:$(PACKAGE_VERSION_CLEAN)
 	docker build . -t kuchedav/fastapi-kubernetes:$(PACKAGE_VERSION_CLEAN)
 
 	@echo '==========================================================================='
