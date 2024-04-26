@@ -104,3 +104,10 @@ test:
 
 load_test:
 	locust -f tests/load_test.py --host http://localhost:8000
+
+#################################################################################
+# TESTING                                                                       #
+#################################################################################
+
+fastapi_activate_outside_connections:
+	minikube tunnel

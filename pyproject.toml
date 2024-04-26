@@ -8,7 +8,8 @@ authors = [{name = "David Kuchelmeister"}]
 dependencies = [
   "uvicorn >= 0.29.0",
   "fastapi >= 0.110.2",
-  "daves_utilities >= 0.1.11"
+  "daves_utilities >= 0.1.11",
+  "loguru >= 0.7.2",
 ]
 dynamic = ["version"]
 name = "fastapi_kubernetes"
