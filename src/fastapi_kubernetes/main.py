@@ -2,7 +2,7 @@ from fastapi import Depends
 from fastapi import FastAPI
 from loguru import logger
 
-from fastapi_kubernetes.auth import authenticate_user
+from fastapi_kubernetes.authentication import authenticate_user
 
 app = FastAPI()
 
